@@ -1,0 +1,2 @@
+1. Workbench - создать новую схему базы данных
+2. При подключении в Idea - product@localhost, Advanced - ServerTimeZone=UTC

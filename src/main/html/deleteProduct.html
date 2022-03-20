@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete product</title>
+    <link rel='stylesheet' href='css/bootstrap.min.css'>
+    <link rel="stylesheet" type="text/css" href="css/w3.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+    <div id ="products" class="container">
+
+    </div>
+    </div>
+</body>
+<script>
+//Получисть список дел
+async function getAllProducts(){
+const res = await fetch("http://127.0.0.1:8080/products");
+const products = await res.json();
+//console.log(products);
+products.forEach(product => {
+    productToHTML(product.id, product.name, product.price);
+});
+}
+
+//При загрузке контента вывести список продуктов
+window.addEventListener('DOMContentLoaded', getAllProducts);
+
+//Вывести список дел
+function productToHTML(id, name, price){
+    const productList = document.getElementById('products');
+
+    productList.insertAdjacentHTML('beforeend',`
+    <div class="form-check" id="product${id}">
+    <label for="" class="form-check-label">   
+         
+        ${name}, ${price}
+    </label>
+    <button class="btn-close" onclick="deleteProduct(${id})" aria-label="close"></button>
+</div>
+    `);
+}
+
+async function deleteProduct(id){
+    const res = await fetch(`http://127.0.0.1:8080/products/${id}`,
+    {method: "DELETE",
+    headers:{'Content-Type':'application/json'}
+    });
+
+    //const data = res.json();
+    //console.log(data);
+
+    //Удалить элемент на странице
+    /*if (data){
+        document.getElementById(`product${id}`).remove();
+    }
+    */
+    document.getElementById(`product${id}`).remove();
+}
+</script>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Product List</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h1>Product List</h1>
+<a href="addProduct">Add Person</a>
+<br/><br/>
+<div>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+        </tr>
+        <!--/*@thymesVar id="products" type="List<org.itstep.springrestmysql2.model.Product>"*/-->
+        <tr th:each ="product : ${products}">
+            <td th:utext="${product.name}">...</td>
+            <td th:utext="${product.price}">...</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
